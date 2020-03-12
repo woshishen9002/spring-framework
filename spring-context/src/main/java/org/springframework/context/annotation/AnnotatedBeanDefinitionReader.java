@@ -245,6 +245,8 @@ public class AnnotatedBeanDefinitionReader {
 	 * @param customizers one or more callbacks for customizing the factory's
 	 * {@link BeanDefinition}, e.g. setting a lazy-init or primary flag
 	 * @since 5.0
+	 *
+	 * 注册bean
 	 */
 	private <T> void doRegisterBean(Class<T> beanClass, @Nullable String name,
 			@Nullable Class<? extends Annotation>[] qualifiers, @Nullable Supplier<T> supplier,

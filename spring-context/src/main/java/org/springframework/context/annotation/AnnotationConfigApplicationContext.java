@@ -63,7 +63,9 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * through {@link #register} calls and then manually {@linkplain #refresh refreshed}.
 	 */
 	public AnnotationConfigApplicationContext() {
+		//处理通过ac.register注册进来的组件
 		this.reader = new AnnotatedBeanDefinitionReader(this);
+		//扫描那些在@ComponentScan注解中的包下的Component、Service...（spring的组件）
 		this.scanner = new ClassPathBeanDefinitionScanner(this);
 	}
 
@@ -157,6 +159,8 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	@Override
 	public void register(Class<?>... componentClasses) {
 		Assert.notEmpty(componentClasses, "At least one component class must be specified");
+		//当主程序启动后，程序是无法知道spring的组件是在哪个包下，所以需要通过该类注册一个类，告诉sping要去扫描哪个包
+		//注册的方式是调用ac.register(AppConfig.class);
 		this.reader.register(componentClasses);
 	}
 

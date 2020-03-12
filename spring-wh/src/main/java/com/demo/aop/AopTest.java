@@ -12,6 +12,10 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 public class AopTest {
 	public static void main(String[] args) {
+		//第一种写法
+		//AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.cl);
+
+		//第二种写法
 		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
 		ac.register(AppConfig.class);
 		ac.refresh();
