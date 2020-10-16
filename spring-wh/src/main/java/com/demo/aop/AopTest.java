@@ -2,6 +2,7 @@ package com.demo.aop;
 
 import com.demo.aop.init.AppConfig;
 import com.demo.aop.service.X;
+import org.springframework.beans.SimpleTypeConverter;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -13,14 +14,21 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class AopTest {
 	public static void main(String[] args) {
 		//第一种写法
-		//AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.cl);
+		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
 
 		//第二种写法
-		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
+		/*AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
 		ac.register(AppConfig.class);
-		ac.refresh();
+		ac.refresh();*/
+
 
 		X x = ac.getBean(X.class);
 		x.getName();
+
+		/*获取操作系统环境*/
+		//System.out.println(ac.getEnvironment().getSystemEnvironment());
+
+
+
 	}
 }
