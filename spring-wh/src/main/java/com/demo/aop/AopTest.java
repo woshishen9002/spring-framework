@@ -20,6 +20,7 @@ public class AopTest {
 		/*AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
 		ac.register(AppConfig.class);
 		ac.refresh();*/
+		//ac.refresh(); 由于AnnotationConfigApplicationContext继承自GenericApplicationContext，不支持多次刷新，即不支持多次调用refresh()，否则会报错
 
 
 		X x = ac.getBean(X.class);

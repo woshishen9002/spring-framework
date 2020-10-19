@@ -282,8 +282,10 @@ public class AnnotatedBeanDefinitionReader {
 			}
 		}
 
+		//BeanDefinitionHolder其实就是BeanDefinition的包装类
 		BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(abd, beanName);
 		definitionHolder = AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, this.registry);
+		//将BeanDefinition注册
 		BeanDefinitionReaderUtils.registerBeanDefinition(definitionHolder, this.registry);
 	}
 

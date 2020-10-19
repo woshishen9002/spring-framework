@@ -90,6 +90,7 @@ public class InjectionMetadata {
 
 
 	public void checkConfigMembers(RootBeanDefinition beanDefinition) {
+		//将注入点信息缓存在Set<InjectedElement>
 		Set<InjectedElement> checkedElements = new LinkedHashSet<>(this.injectedElements.size());
 		for (InjectedElement element : this.injectedElements) {
 			Member member = element.getMember();
@@ -159,6 +160,7 @@ public class InjectionMetadata {
 
 	/**
 	 * A single injected element.
+	 * 表示注入点
 	 */
 	public abstract static class InjectedElement {
 
