@@ -163,12 +163,17 @@ public abstract class BeanDefinitionReaderUtils {
 
 		// Register bean definition under primary name.
 		String beanName = definitionHolder.getBeanName();
+
+		//调用注册方法，注册BeanDefinition，
+		// 其实就是将BeanDefinition放入beanDefinitionMap中（存在线程安全的处理）
+		//这里是DefaultListableBeanFactory#registerBeanDefinition
 		registry.registerBeanDefinition(beanName, definitionHolder.getBeanDefinition());
 
 		// Register aliases for bean name, if any.
 		String[] aliases = definitionHolder.getAliases();
 		if (aliases != null) {
 			for (String alias : aliases) {
+				//将别名和beanName存入map
 				registry.registerAlias(beanName, alias);
 			}
 		}

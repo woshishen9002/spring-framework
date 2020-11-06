@@ -67,6 +67,7 @@ public class BeanDefinitionHolder implements BeanMetadataElement {
 		Assert.notNull(beanName, "Bean name must not be null");
 		this.beanDefinition = beanDefinition;
 		this.beanName = beanName;
+		//一个Bean可以有多个别名，所以这里用数组存储一个bean的别名
 		this.aliases = aliases;
 	}
 

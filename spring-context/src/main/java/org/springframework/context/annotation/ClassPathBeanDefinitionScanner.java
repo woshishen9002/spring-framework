@@ -165,7 +165,9 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
 		if (useDefaultFilters) {
 			registerDefaultFilters();
 		}
+		//设置environment
 		setEnvironment(environment);
+		//设置resourceLoade
 		setResourceLoader(resourceLoader);
 	}
 

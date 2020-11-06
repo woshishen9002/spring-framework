@@ -242,12 +242,13 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	protected <T> T doGetBean(final String name, @Nullable final Class<T> requiredType,
 			@Nullable final Object[] args, boolean typeCheckOnly) throws BeansException {
 
-		//获取标准beanName
+		//获取标准的beanName
 		final String beanName = transformedBeanName(name);
 		Object bean;
 
 		// Eagerly check singleton cache for manually registered singletons.
-		//从单例池获取bean
+		//从单例池singletonObjects获取bean，
+		// 获取到的对象有可能是 FactoryBean ，或者普通Bean
 		Object sharedInstance = getSingleton(beanName);
 		if (sharedInstance != null && args == null) {
 			if (logger.isTraceEnabled()) {
@@ -305,6 +306,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 				String[] dependsOn = mbd.getDependsOn();
 				if (dependsOn != null) {
 					for (String dep : dependsOn) {
+						//判断beanName是否依赖dep，这里的依赖是加了@DependsOn的
 						if (isDependent(beanName, dep)) {
 							throw new BeanCreationException(mbd.getResourceDescription(), beanName,
 									"Circular depends-on relationship between '" + beanName + "' and '" + dep + "'");
@@ -321,11 +323,13 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 				}
 
 				// Create bean instance.
-				//创建bean实例,如果是单例的
+				//根据BeanDefinition判断是否单例的
 				if (mbd.isSingleton()) {
+					//创建bean实例对象
 					//提供一个函数，作为获取Object的具体实现
 					sharedInstance = getSingleton(beanName, () -> {
-						try { //即getObjct方法
+						try {
+							//即getObjct方法
 							return createBean(beanName, mbd, args);
 						}
 						catch (BeansException ex) {
@@ -336,6 +340,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 							throw ex;
 						}
 					});
+					//根据实例对象获取bean对象
 					bean = getObjectForBeanInstance(sharedInstance, name, beanName, mbd);
 				}
 
@@ -385,6 +390,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		}
 
 		// Check if required type matches the type of the actual bean instance.
+		//判断?, requiredType是啥？
 		if (requiredType != null && !requiredType.isInstance(bean)) {
 			try {
 				T convertedBean = getTypeConverter().convertIfNecessary(bean, requiredType);
@@ -1073,16 +1079,23 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 	@Override
 	public boolean isFactoryBean(String name) throws NoSuchBeanDefinitionException {
+		//获取bean的标准名称
 		String beanName = transformedBeanName(name);
+		//根据beanName,获取单例对象
 		Object beanInstance = getSingleton(beanName, false);
 		if (beanInstance != null) {
+			//如果是FactoryBean的子类，返回true
 			return (beanInstance instanceof FactoryBean);
 		}
+
 		// No singleton instance found -> check bean definition.
+		//如果BeanDefinition中没有该名称，判断父的BeanFactory是否是FactoryBean,递归调用
 		if (!containsBeanDefinition(beanName) && getParentBeanFactory() instanceof ConfigurableBeanFactory) {
 			// No bean definition found in this factory -> delegate to parent.
 			return ((ConfigurableBeanFactory) getParentBeanFactory()).isFactoryBean(name);
 		}
+
+		//如果BeanDefinition中存在该名称，根据合并后的BeanDefinition,判断其是否是FactoryBean
 		return isFactoryBean(beanName, getMergedLocalBeanDefinition(beanName));
 	}
 
@@ -1193,6 +1206,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * @return the transformed bean name
 	 */
 	protected String transformedBeanName(String name) {
+		//获取bean的标准名称
+		//如果是factoryBean ,前缀是一个或多个&符合，
 		return canonicalName(BeanFactoryUtils.transformedBeanName(name));
 	}
 

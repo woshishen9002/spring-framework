@@ -133,6 +133,7 @@ public class AnnotatedBeanDefinitionReader {
 	 * e.g. {@link Configuration @Configuration} classes
 	 */
 	public void register(Class<?>... componentClasses) {
+		//将扫描到的spring组件，注册到BeanDefinitionMap中
 		for (Class<?> componentClass : componentClasses) {
 			registerBean(componentClass);
 		}
@@ -282,10 +283,11 @@ public class AnnotatedBeanDefinitionReader {
 			}
 		}
 
-		//BeanDefinitionHolder其实就是BeanDefinition的包装类
+		//BeanDefinitionHolder其实就是BeanDefinition的包装类（beanName, BeanDefinition, 别名）
 		BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(abd, beanName);
+		//将新创建的BeanDefinitionHolder传进去，如果是代理对象将创建一个新的BeanDefinitionHolder返回
 		definitionHolder = AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, this.registry);
-		//将BeanDefinition注册
+		//将BeanDefinition存到beanDefinitionMap中
 		BeanDefinitionReaderUtils.registerBeanDefinition(definitionHolder, this.registry);
 	}
 

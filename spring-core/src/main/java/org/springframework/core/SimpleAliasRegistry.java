@@ -44,6 +44,7 @@ public class SimpleAliasRegistry implements AliasRegistry {
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	/** Map from alias to canonical name. */
+	//key是别名，value是标准名称
 	private final Map<String, String> aliasMap = new ConcurrentHashMap<>(16);
 
 
@@ -75,6 +76,7 @@ public class SimpleAliasRegistry implements AliasRegistry {
 					}
 				}
 				checkForAliasCircle(name, alias);
+				//存放别名的Map, key是别名，value是beanName
 				this.aliasMap.put(alias, name);
 				if (logger.isTraceEnabled()) {
 					logger.trace("Alias definition '" + alias + "' registered for name '" + name + "'");

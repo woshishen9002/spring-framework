@@ -433,23 +433,31 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 		if (alreadySeen != null && alreadySeen.contains(beanName)) {
 			return false;
 		}
+		//根据别名获取标准名称
 		String canonicalName = canonicalName(beanName);
+		//根据标准名称，获取依赖的Set<>
 		Set<String> dependentBeans = this.dependentBeanMap.get(canonicalName);
 		if (dependentBeans == null) {
 			return false;
 		}
+		//如果依赖的集合中包含传入的名称，返回true
 		if (dependentBeans.contains(dependentBeanName)) {
 			return true;
 		}
+
+		//遍历依赖的集合中每一项，作为beanName，深入判断依赖项是否对传入的dependentBeanName是否有依赖关系
 		for (String transitiveDependency : dependentBeans) {
 			if (alreadySeen == null) {
 				alreadySeen = new HashSet<>();
 			}
 			alreadySeen.add(beanName);
+			//递归调用依赖判断
 			if (isDependent(transitiveDependency, dependentBeanName, alreadySeen)) {
 				return true;
 			}
 		}
+
+		//如果递归判断也没有依赖关系，则真的没有依赖关系了，返回false
 		return false;
 	}
 

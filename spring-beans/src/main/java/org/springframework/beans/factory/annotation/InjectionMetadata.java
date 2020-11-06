@@ -109,7 +109,7 @@ public class InjectionMetadata {
 		Collection<InjectedElement> checkedElements = this.checkedElements;
 		Collection<InjectedElement> elementsToIterate =
 				(checkedElements != null ? checkedElements : this.injectedElements);
-		if (!elementsToIterate.isEmpty()) {
+		if (!elementsToIterate.isEmpty()) { //InjectedElement实现类，属性的注入点，方法的注入点 AutowiredFieldElement
 			for (InjectedElement element : elementsToIterate) {
 				if (logger.isTraceEnabled()) {
 					logger.trace("Processing injected element of bean '" + beanName + "': " + element);
@@ -220,7 +220,7 @@ public class InjectionMetadata {
 		protected void inject(Object target, @Nullable String requestingBeanName, @Nullable PropertyValues pvs)
 				throws Throwable {
 
-			if (this.isField) {
+			if (this.isField) { //如果是属性
 				Field field = (Field) this.member;
 				ReflectionUtils.makeAccessible(field);
 				field.set(target, getResourceToInject(target, requestingBeanName));
@@ -229,7 +229,7 @@ public class InjectionMetadata {
 				if (checkPropertySkipping(pvs)) {
 					return;
 				}
-				try {
+				try { //如果是方法
 					Method method = (Method) this.member;
 					ReflectionUtils.makeAccessible(method);
 					method.invoke(target, getResourceToInject(target, requestingBeanName));
