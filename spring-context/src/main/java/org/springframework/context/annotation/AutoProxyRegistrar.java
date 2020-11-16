@@ -34,6 +34,7 @@ import org.springframework.core.type.AnnotationMetadata;
  * @author Chris Beams
  * @since 3.1
  * @see EnableAspectJAutoProxy
+ * 注册了一个InfrastructureAdvisorAutoProxyCreator的Bean
  */
 public class AutoProxyRegistrar implements ImportBeanDefinitionRegistrar {
 

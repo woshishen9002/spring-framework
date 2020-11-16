@@ -47,6 +47,8 @@ public class TransactionManagementConfigurationSelector extends AdviceModeImport
 	protected String[] selectImports(AdviceMode adviceMode) {
 		switch (adviceMode) {
 			case PROXY:
+				//AutoProxyRegistrar开启自动代理
+				//ProxyTransactionManagementConfiguration中定义3个bean,设置代理逻辑
 				return new String[] {AutoProxyRegistrar.class.getName(),
 						ProxyTransactionManagementConfiguration.class.getName()};
 			case ASPECTJ:
