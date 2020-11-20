@@ -49,6 +49,10 @@ import java.lang.annotation.Target;
  * @see ImportSelector
  * @see ImportBeanDefinitionRegistrar
  * @see ImportResource
+ * 1. 如果配置类上存在@Import注解，那么则判断Import的类的类型：
+ * 		a. 如果是ImportSelector，那么调用执行selectImports方法得到类名，然后在把这个类当做配置类进行解析（也是递归）
+ * 		b. 如果是ImportBeanDefinitionRegistrar，那么则生成一个ImportBeanDefinitionRegistrar实例对象，
+ * 			并添加到配置类对象中（ConfigurationClass）的importBeanDefinitionRegistrars属性中。
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
