@@ -166,7 +166,8 @@ class ConfigurationClassParser {
 		for (BeanDefinitionHolder holder : configCandidates) {
 			BeanDefinition bd = holder.getBeanDefinition();
 			try {
-				if (bd instanceof AnnotatedBeanDefinition) { //如果BeanDefinition是注解
+				if (bd instanceof AnnotatedBeanDefinition) {
+					//如果BeanDefinition是注解，扫描
 					parse(((AnnotatedBeanDefinition) bd).getMetadata(), holder.getBeanName());
 				}
 				else if (bd instanceof AbstractBeanDefinition && ((AbstractBeanDefinition) bd).hasBeanClass()) {
@@ -199,6 +200,7 @@ class ConfigurationClassParser {
 	}
 
 	protected final void parse(AnnotationMetadata metadata, String beanName) throws IOException {
+		//创建ConfigurationClass，解析并扫描
 		processConfigurationClass(new ConfigurationClass(metadata, beanName));
 	}
 
