@@ -14,8 +14,10 @@ import javax.annotation.PostConstruct;
 @Component
 public class X {
 
-	@Autowired
-	private Y y;
+	/*@Autowired
+	private Y y;*/
+
+	private String name;
 
 	@PostConstruct
 	public void initPost(){
@@ -27,7 +29,10 @@ public class X {
 	}
 
 	public void getName(){
-		System.out.println("this is x");
+		System.out.println("this is x--name="+name);
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 }

@@ -14,16 +14,16 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class AopTest {
 	public static void main(String[] args) {
 		//第一种写法
-		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+		//AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
 
 		//第二种写法
-		/*AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
+		AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
 		ac.register(AppConfig.class);
-		ac.refresh();*/
+		ac.refresh();
 		//ac.refresh(); 由于AnnotationConfigApplicationContext继承自GenericApplicationContext，不支持多次刷新，即不支持多次调用refresh()，否则会报错
 
 
-		X x = ac.getBean(X.class);
+		X x = (X)ac.getBean("x");
 		x.getName();
 
 		/*获取操作系统环境*/

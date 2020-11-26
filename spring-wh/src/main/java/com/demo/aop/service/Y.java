@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @author: wanghui
  * @create: 2020-03-12 16:24
  */
-@Component
 public class Y{
 
 	/*@Autowired

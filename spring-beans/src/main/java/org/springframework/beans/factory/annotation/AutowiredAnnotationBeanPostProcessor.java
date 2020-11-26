@@ -392,7 +392,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 		return (candidateConstructors.length > 0 ? candidateConstructors : null);
 	}
 
-	//TODO wh.@Autowire注解，处理属性注入的方法
+	//TODO WH.@Autowire注解，处理属性注入的方法
 	@Override
 	public PropertyValues postProcessProperties(PropertyValues pvs, Object bean, String beanName) {
 		//获取所有的注入点
