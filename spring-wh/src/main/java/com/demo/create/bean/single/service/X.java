@@ -1,6 +1,5 @@
-package com.demo.aop.service;
+package com.demo.create.bean.single.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -14,18 +13,15 @@ import javax.annotation.PostConstruct;
 @Component
 public class X {
 
-	/*@Autowired
-	private Y y;*/
-
 	private String name;
+
+	public X() {
+		System.out.println("X init");
+	}
 
 	@PostConstruct
 	public void initPost(){
 		System.out.println("X @PostConstruct been init");
-	}
-
-	public X() {
-		System.out.println("X init");
 	}
 
 	public void getName(){

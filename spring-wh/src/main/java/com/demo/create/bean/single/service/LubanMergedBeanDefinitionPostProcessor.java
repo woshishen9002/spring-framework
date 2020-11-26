@@ -1,4 +1,4 @@
-package com.demo.aop.service;
+package com.demo.create.bean.single.service;
 
 import org.springframework.beans.factory.support.MergedBeanDefinitionPostProcessor;
 import org.springframework.beans.factory.support.RootBeanDefinition;

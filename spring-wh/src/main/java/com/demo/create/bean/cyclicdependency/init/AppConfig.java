@@ -1,7 +1,6 @@
-package com.demo.aop.init;
+package com.demo.create.bean.cyclicdependency.init;
 
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @program: spring
@@ -9,7 +8,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author: wanghui
  * @create: 2020-03-12 16:29
  */
-@ComponentScan("com.demo.aop")
+@ComponentScan("com.demo.create.bean.cyclicdependency")
 public class AppConfig {
 
 }
